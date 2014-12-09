@@ -21,7 +21,12 @@ public class GearsContext {
 	}
 	
 	public static void setJcrSession(Session session) {
+		Session existingSession = (Session) VaadinService.getCurrentRequest().getWrappedSession().getAttribute(SESSION_PARAM);
+		if(existingSession != null) {
+			existingSession.logout();
+		}
 		VaadinService.getCurrentRequest().getWrappedSession().setAttribute(SESSION_PARAM, session);
+		
 	}
 	
 }
