@@ -1,0 +1,7 @@
+/target
+/jackrabbit/repository
+/jackrabbit/version
+/jackrabbit/workspaces
+/.settings
+/derby.log
+/src/main/webapp/VAADIN/widgetsets
