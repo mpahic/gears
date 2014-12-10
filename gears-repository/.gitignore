@@ -1,2 +1,5 @@
 /target
 /.settings
+/repository
+/repository.xml
+/derby.log

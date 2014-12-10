@@ -1,5 +1,7 @@
 package com.cloudcog.gears.login;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -8,6 +10,8 @@ import java.util.List;
 
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
+
+import org.apache.jackrabbit.commons.cnd.ParseException;
 
 import com.cloudcog.gears.GearsContext;
 import com.cloudcog.gears.GearsUI;
@@ -31,6 +35,15 @@ public class UserSessionHandler {
 		} catch (javax.jcr.LoginException e) {
 			throw new LoginException();
 		} catch (RepositoryException e) {
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

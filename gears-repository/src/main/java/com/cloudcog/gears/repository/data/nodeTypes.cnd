@@ -1,0 +1,22 @@
+<cog = 'http://jcr.cloudcog.eu/'>
+[cog:article]
+- cog:headline (string)
+= 'Headline Goes Here'
+mandatory autocreated
+- cog:body (string)
+= 'Body Goes Here'
+mandatory autocreated
+
+[cog:structured] 
+orderable
+  - * (undefined) multiple
+  - * (undefined)
+  + * (nt:base) = cog:structured version
+
+[cog:project] > mix:created, mix:lastModified
+- cog:name (string)
+= 'Project Name'
+mandatory 
+- cog:description (string)
+= 'Description Goes Here'
+autocreated 
