@@ -65,6 +65,23 @@ public class NodeTypeTesting {
 		Assert.assertEquals("project name", checkNode.getProperty("cog:name").getValue().getString());
 
 	}
+
+	@Test
+	public void testProjectNodeName() throws RepositoryException  {
+		
+		Node root = session.getRootNode();
+		Node projects = root.addNode("projects");
+		Node projectNode = projects.addNode("1234 đšČĆČČ . asd","cog:project");
+		projectNode.setProperty("cog:name", "project name");
+		System.out.println(projectNode.getPath());
+		
+		session.save();
+		
+		Node checkNode = session.getNode("/projects/1234 đšČĆČČ . asd");
+		Assert.assertEquals("1234 đšČĆČČ . asd", checkNode.getName());
+		Assert.assertEquals("project name", checkNode.getProperty("cog:name").getValue().getString());
+
+	}
 	
 	@Test(expected = ItemExistsException.class)  
 	public void testSameNameProjects() throws RepositoryException  {

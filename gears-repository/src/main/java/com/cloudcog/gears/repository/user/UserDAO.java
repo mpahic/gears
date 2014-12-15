@@ -74,10 +74,20 @@ public class UserDAO {
 	}
 	
 	public static User createUser(Session session, String username, String password) throws AuthorizableExistsException, RepositoryException {
-		final UserManager userManager = ((JackrabbitSession) session).getUserManager();
-		final User user = userManager.createUser(username, password);
+		final User user = ((JackrabbitSession) session).getUserManager().createUser(username, password);
 		session.save();
 		return user;
+	}
+	
+	public static Group createGroup(Session session, String groupName) throws AuthorizableExistsException, RepositoryException {
+		final Group group = ((JackrabbitSession) session).getUserManager().createGroup(groupName);
+		session.save();
+		return group;
+	}
+	
+	public static void addUserToGroup(Session session, Group group, User user) throws AuthorizableExistsException, RepositoryException {
+		group.addMember(user);
+		session.save();
 	}
 	
 	public static void removeUser(Session session, String username) throws AccessDeniedException, UnsupportedRepositoryOperationException, RepositoryException {
