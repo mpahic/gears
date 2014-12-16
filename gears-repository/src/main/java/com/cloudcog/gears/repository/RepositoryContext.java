@@ -1,8 +1,10 @@
 package com.cloudcog.gears.repository;
 
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 
 import javax.jcr.GuestCredentials;
 import javax.jcr.LoginException;
@@ -28,7 +30,9 @@ public class RepositoryContext {
 		log.info("Logging user: " + username);
 		
 		Session session = RepositoryContext.getRepository().login(new SimpleCredentials(username, password.toCharArray()));
-		CndImporter.registerNodeTypes(new FileReader("src/main/java/com/cloudcog/gears/repository/data/nodeTypes.cnd"),session);
+		InputStream inputSteram = RepositoryContext.class.getResourceAsStream("/com/cloudcog/gears/repository/data/nodeTypes.cnd");
+		Reader reader = new InputStreamReader(inputSteram);
+		CndImporter.registerNodeTypes(reader, session);
 		
 		return session; 
 	}

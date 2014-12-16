@@ -24,8 +24,8 @@ public class UserDAO {
 		return ((User) js.getUserManager().getAuthorizable(session.getUserID()));
 	}
 
-	public static List<User> getAllUsers(Session session) throws RepositoryException {
-		final List<User> users = new ArrayList<User>();
+	public static List<GearsUser> getAllUsers(Session session) throws RepositoryException {
+		final List<GearsUser> users = new ArrayList<GearsUser>();
 
 		final UserManager userManager = ((JackrabbitSession) session).getUserManager();
 		Iterator<Authorizable> iter = userManager.findAuthorizables("jcr:primaryType", "rep:User");
@@ -33,7 +33,7 @@ public class UserDAO {
 		while (iter.hasNext()) {
 			Authorizable auth = iter.next();
 			if (!auth.isGroup()) {
-				users.add((User) auth);
+				users.add(new GearsUser((User) auth));
 			}
 		}
 

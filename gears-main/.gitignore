@@ -2,6 +2,9 @@
 /jackrabbit/repository
 /jackrabbit/version
 /jackrabbit/workspaces
+/log/
+/repository
+/repository.xml
 /.settings
 /derby.log
 /src/main/webapp/VAADIN/widgetsets

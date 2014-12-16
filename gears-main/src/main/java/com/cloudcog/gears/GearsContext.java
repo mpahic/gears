@@ -20,13 +20,21 @@ public class GearsContext {
 		return session;
 	}
 	
+	public static Boolean isAuthorized() throws RepositoryException {
+		Session session = (Session) VaadinService.getCurrentRequest().getWrappedSession().getAttribute(SESSION_PARAM);
+		if(session == null || session.getUserID().equals("anonymous")) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
 	public static void setJcrSession(Session session) {
 		Session existingSession = (Session) VaadinService.getCurrentRequest().getWrappedSession().getAttribute(SESSION_PARAM);
 		if(existingSession != null) {
 			existingSession.logout();
 		}
 		VaadinService.getCurrentRequest().getWrappedSession().setAttribute(SESSION_PARAM, session);
-		
 	}
 	
 }
