@@ -1,7 +1,6 @@
 package com.cloudcog.gears.login;
 
-import com.cloudcog.gears.GearsUI;
-import com.vaadin.server.VaadinSession;
+import com.cloudcog.gears.AbstractAuthorizableUI;
 import com.vaadin.ui.MenuBar.Command;
 import com.vaadin.ui.MenuBar.MenuItem;
 
@@ -14,8 +13,7 @@ public class LogoutClickListener implements Command{
 	}
 
 	private void fireLogoutAction() {
-		VaadinSession.getCurrent().setAttribute("user", null);
-		((GearsUI) GearsUI.getCurrent()).sessionDestroyHandler();
+		((AbstractAuthorizableUI) AbstractAuthorizableUI.getCurrent()).sessionDestroyHandler();
 		
 	}
 

@@ -17,6 +17,7 @@ public class GearsUser {
 	private static final String PROPERTY_GENDER = "gender";
 	private static final String PROPERTY_FIRST_NAME = "firstName";
 	private static final String PROPERTY_LAST_NAME = "lastName";
+	private static final String PROPERTY_ADDRESS = "address";
 
 	private User user;
 	
@@ -128,6 +129,19 @@ public class GearsUser {
 		} else {
 			return value[0].getString();
 		}
+	}
+
+	public String getAddress() throws RepositoryException {
+		Value[] value = this.user.getProperty(PROPERTY_ADDRESS);
+		if(value == null) {
+			return "";
+		} else {
+			return value[0].getString();
+		}
+	}
+
+	public String getFullName() throws RepositoryException {
+		return getFirstName() + " " + getLastName();
 	}
 	
 }

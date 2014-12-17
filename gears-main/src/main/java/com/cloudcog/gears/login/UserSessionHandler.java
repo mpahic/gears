@@ -13,17 +13,16 @@ import javax.jcr.Session;
 
 import org.apache.jackrabbit.commons.cnd.ParseException;
 
+import com.cloudcog.gears.AbstractAuthorizableUI;
 import com.cloudcog.gears.GearsContext;
-import com.cloudcog.gears.GearsUI;
 import com.cloudcog.gears.login.exception.LoginException;
 import com.cloudcog.gears.repository.RepositoryContext;
 
 public class UserSessionHandler {
 	private List<ISessionListener> listeners = new ArrayList<ISessionListener>();
-//	private static Logger log = Logger.getLogger(UserSessionHandler.class);
 	
 	public UserSessionHandler() {
-		this.addListener((GearsUI) GearsUI.getCurrent());
+		this.addListener((AbstractAuthorizableUI) AbstractAuthorizableUI.getCurrent());
 	}
 	
 	public void loginUser(String username, String password) throws LoginException {

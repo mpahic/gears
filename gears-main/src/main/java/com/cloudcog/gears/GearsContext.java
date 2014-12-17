@@ -11,6 +11,15 @@ public class GearsContext {
 	
 	private static final String SESSION_PARAM = "jcrSession";
 
+
+	public static void destroyJcrSession() {
+		Session session = (Session) VaadinService.getCurrentRequest().getWrappedSession().getAttribute(SESSION_PARAM);
+		if(session != null) {
+			session.logout();
+			VaadinService.getCurrentRequest().getWrappedSession().removeAttribute(SESSION_PARAM);
+		}
+	}
+	
 	public static Session getJcrSession() throws LoginException, RepositoryException {
 		Session session = (Session) VaadinService.getCurrentRequest().getWrappedSession().getAttribute(SESSION_PARAM);
 		if(session == null) {
@@ -20,7 +29,7 @@ public class GearsContext {
 		return session;
 	}
 	
-	public static Boolean isAuthorized() throws RepositoryException {
+	public static Boolean isAuthorized() {
 		Session session = (Session) VaadinService.getCurrentRequest().getWrappedSession().getAttribute(SESSION_PARAM);
 		if(session == null || session.getUserID().equals("anonymous")) {
 			return false;

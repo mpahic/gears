@@ -52,7 +52,7 @@ public class LeftMenu extends Panel{
 		        	Notification.show("Left click", Notification.Type.HUMANIZED_MESSAGE);
 		        } else if(event.isDoubleClick()) {
 		        	Panel tab = new Panel(event.getItem().toString());
-		        	GearsUI.getCurrent().getMainPanel().addTab(tab);
+//		        	GearsUI.getCurrent().getMainPanel().addTab(tab);
 		        }
 		    }
 		});

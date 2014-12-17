@@ -1,5 +1,6 @@
-package com.cloudcog.gears.login;
+package com.cloudcog.gears.screen.login;
 
+import com.cloudcog.gears.login.UserSessionHandler;
 import com.cloudcog.gears.login.exception.LoginException;
 import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.server.UserError;
@@ -58,7 +59,7 @@ public class LoginScreen extends VerticalLayout implements ClickListener {
 			userSession.loginUser(txtUsername.getValue(), txtPassword.getValue());
 			
 		} catch (LoginException e) {
-			txtUsername.setComponentError(new UserError("Wrong username"));
+			btnLogin.setComponentError(new UserError("Wrong username or password."));
 		} catch (Exception e) {
 			btnLogin.setComponentError(new UserError(e.getMessage()));
 			e.printStackTrace();

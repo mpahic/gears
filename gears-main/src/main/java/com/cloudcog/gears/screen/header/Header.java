@@ -1,14 +1,9 @@
 package com.cloudcog.gears.screen.header;
 
-import javax.jcr.LoginException;
-import javax.jcr.RepositoryException;
-
 import com.cloudcog.gears.GearsContext;
 import com.cloudcog.gears.login.LogoutClickListener;
-import com.cloudcog.gears.model.user.User;
 import com.cloudcog.gears.util.ImageResource;
 import com.vaadin.server.ThemeResource;
-import com.vaadin.server.VaadinSession;
 import com.vaadin.ui.AbsoluteLayout;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.MenuBar;
