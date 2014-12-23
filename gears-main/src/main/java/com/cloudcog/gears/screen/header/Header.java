@@ -1,9 +1,6 @@
 package com.cloudcog.gears.screen.header;
 
-import com.cloudcog.gears.GearsContext;
-import com.cloudcog.gears.login.LogoutClickListener;
 import com.cloudcog.gears.util.ImageResource;
-import com.vaadin.server.ThemeResource;
 import com.vaadin.ui.AbsoluteLayout;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.MenuBar;
@@ -18,39 +15,9 @@ public class Header extends Panel{
 	private Button btnSearchHistory;
 	private MenuBar mnuUser;
 
-	public Header() {
+	public Header(MenuBar menu) {
+		this.mnuUser = menu;
 		this.setContent(buildPanel());
-		init();
-	}
-
-	private void init() {
-
-		try {
-			mnuUser.addItem("File", null);
-			MenuBar.MenuItem administration = mnuUser.addItem("Administration", null);
-			administration.addItem("Users", ImageResource.getResource(ImageResource.USERS_16), null);
-			administration.addItem("Settings", ImageResource.getResource(ImageResource.WRENCH_SCREWDRIVER_16), null);
-			administration.addItem("Statuses", ImageResource.getResource(ImageResource.WRENCH_16), null);
-			
-//			User user = (User) VaadinSession.getCurrent().getAttribute("user");
-			String username = GearsContext.getJcrSession().getUserID();
-			MenuBar.MenuItem userSetting = mnuUser.addItem(username, 
-					ImageResource.getResource(ImageResource.USER_GREEN_16), null);
-			
-			userSetting.setStyleName("menuRight");
-			ThemeResource userIcon;
-//			if(user.isMale()) {
-//				userIcon = ImageResource.getResource(ImageResource.USER_16);
-//			} else {
-//				userIcon = ImageResource.getResource(ImageResource.USER_FEMALE_16);
-//			}
-//			userSetting.addItem("Profile", userIcon, null);
-			userSetting.addItem("Settings", ImageResource.getResource(ImageResource.WRENCH_SCREWDRIVER_16), null);
-			userSetting.addItem("Logout", ImageResource.getResource(ImageResource.PROHIBITION_16), new LogoutClickListener());
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 	
 	private AbsoluteLayout buildPanel() {
@@ -61,11 +28,7 @@ public class Header extends Panel{
 
 		setWidth("100.0%");
 		setHeight("100.0%");
-		
-		mnuUser = new MenuBar();
-		mnuUser.setImmediate(false);
-		mnuUser.setWidth("100%");
-		mnuUser.setHeight("-1px");
+
 		mainLayout.addComponent(mnuUser, "bottom:0px;left:0px;");
 		
 		// txtSearch

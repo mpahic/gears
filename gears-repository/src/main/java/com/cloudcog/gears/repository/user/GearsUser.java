@@ -141,7 +141,21 @@ public class GearsUser {
 	}
 
 	public String getFullName() throws RepositoryException {
-		return getFirstName() + " " + getLastName();
+		return (getFirstName() + " " + getLastName()).trim();
+	}
+	
+	@Override
+	public String toString() {
+		try {
+			if(getFullName().isEmpty()) {
+				return getUsername();
+			} else {
+				return getFullName();
+			}
+		} catch (RepositoryException e) {
+			e.printStackTrace();
+			return "user" + super.toString();
+		}
 	}
 	
 }

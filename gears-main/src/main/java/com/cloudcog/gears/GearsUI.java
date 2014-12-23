@@ -2,7 +2,6 @@ package com.cloudcog.gears;
 
 import javax.servlet.annotation.WebServlet;
 
-import com.cloudcog.gears.screen.administration.ApplicationScreen;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.VaadinRequest;
@@ -13,7 +12,6 @@ import com.vaadin.ui.UI;
 public class GearsUI extends UI {
 	private static final long serialVersionUID = 7018419760561966231L;
 	
-	ApplicationScreen applicationScreen;
 
 	@WebServlet(value = "/*", asyncSupported = true)
 	@VaadinServletConfiguration(productionMode = false, ui = GearsUI.class)

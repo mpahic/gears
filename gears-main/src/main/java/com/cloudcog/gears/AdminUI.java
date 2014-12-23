@@ -2,7 +2,7 @@ package com.cloudcog.gears;
 
 import javax.servlet.annotation.WebServlet;
 
-import com.cloudcog.gears.screen.administration.ApplicationScreen;
+import com.cloudcog.gears.controller.admin.AdminScreenController;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.VaadinServlet;
@@ -12,8 +12,6 @@ import com.vaadin.server.VaadinServlet;
 public class AdminUI extends AbstractAuthorizableUI
 {
 
-	private ApplicationScreen applicationScreen;
-
     @WebServlet(value = "/admin/*", asyncSupported = true)
     @VaadinServletConfiguration(productionMode = false, ui = AdminUI.class, widgetset = "com.cloudcog.gears.AppWidgetSet")
     public static class Servlet extends VaadinServlet {
@@ -21,8 +19,8 @@ public class AdminUI extends AbstractAuthorizableUI
 
 	@Override
 	protected void showAppScreen() {
-		applicationScreen = new ApplicationScreen();
-		setContent(applicationScreen);
+		AdminScreenController adminController = new AdminScreenController();
+		setContent(adminController.getMainContent());
 	}
 
 }

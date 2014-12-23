@@ -18,10 +18,10 @@ import org.apache.jackrabbit.api.security.user.UserManager;
 
 public class UserDAO {
 
-	public static User getCurrentUser(Session session) throws AccessDeniedException,
+	public static GearsUser getCurrentUser(Session session) throws AccessDeniedException,
 			UnsupportedRepositoryOperationException, RepositoryException {
 		JackrabbitSession js = (JackrabbitSession) session;
-		return ((User) js.getUserManager().getAuthorizable(session.getUserID()));
+		return new GearsUser((User) js.getUserManager().getAuthorizable(session.getUserID()));
 	}
 
 	public static List<GearsUser> getAllUsers(Session session) throws RepositoryException {
