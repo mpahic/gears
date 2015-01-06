@@ -10,18 +10,16 @@ import com.vaadin.ui.UI;
 
 @Theme("gears")
 public class GearsUI extends UI {
-	private static final long serialVersionUID = 7018419760561966231L;
-	
+    private static final long serialVersionUID = 7018419760561966231L;
 
-	@WebServlet(value = "/*", asyncSupported = true)
-	@VaadinServletConfiguration(productionMode = false, ui = GearsUI.class)
-	public static class Servlet extends VaadinServlet {
-	}
+    @WebServlet(value = "/*", asyncSupported = true)
+    @VaadinServletConfiguration(productionMode = false, ui = GearsUI.class)
+    public static class Servlet extends VaadinServlet {
+    }
 
-	@Override
-	protected void init(VaadinRequest request) {
-		
-	}
-	
+    @Override
+    protected void init(VaadinRequest request) {
+	System.out.println("lalal");
+    }
 
 }

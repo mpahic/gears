@@ -18,8 +18,9 @@ import org.apache.jackrabbit.api.security.user.UserManager;
 
 public class UserDAO {
 
-	public static GearsUser getCurrentUser(Session session) throws AccessDeniedException,
-			UnsupportedRepositoryOperationException, RepositoryException {
+	public static final String ANONIMOUS_USER = "anonymous";
+
+	public static GearsUser getCurrentUser(Session session) throws AccessDeniedException, UnsupportedRepositoryOperationException, RepositoryException {
 		JackrabbitSession js = (JackrabbitSession) session;
 		return new GearsUser((User) js.getUserManager().getAuthorizable(session.getUserID()));
 	}
@@ -39,7 +40,7 @@ public class UserDAO {
 
 		return users;
 	}
-	
+
 	public static List<Group> getAllGroups(Session session) throws RepositoryException {
 		final List<Group> groups = new ArrayList<Group>();
 
@@ -55,7 +56,7 @@ public class UserDAO {
 
 		return groups;
 	}
-	
+
 	public static List<User> getAllUsersFromGroup(Session session, String groupName) throws AccessDeniedException, UnsupportedRepositoryOperationException, RepositoryException {
 		final List<User> members = new ArrayList<User>();
 		final UserManager userManager = ((JackrabbitSession) session).getUserManager();
@@ -69,27 +70,27 @@ public class UserDAO {
 				}
 			}
 		}
-		
+
 		return members;
 	}
-	
+
 	public static User createUser(Session session, String username, String password) throws AuthorizableExistsException, RepositoryException {
 		final User user = ((JackrabbitSession) session).getUserManager().createUser(username, password);
 		session.save();
 		return user;
 	}
-	
+
 	public static Group createGroup(Session session, String groupName) throws AuthorizableExistsException, RepositoryException {
 		final Group group = ((JackrabbitSession) session).getUserManager().createGroup(groupName);
 		session.save();
 		return group;
 	}
-	
+
 	public static void addUserToGroup(Session session, Group group, User user) throws AuthorizableExistsException, RepositoryException {
 		group.addMember(user);
 		session.save();
 	}
-	
+
 	public static void removeUser(Session session, String username) throws AccessDeniedException, UnsupportedRepositoryOperationException, RepositoryException {
 		final UserManager userManager = ((JackrabbitSession) session).getUserManager();
 		final User user = (User) userManager.getAuthorizable(username);

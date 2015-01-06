@@ -1,28 +1,27 @@
 package com.cloudcog.gears;
 
-import javax.jcr.LoginException;
-import javax.jcr.RepositoryException;
-
 import com.cloudcog.gears.login.ISessionListener;
-import com.cloudcog.gears.screen.login.LoginScreen;
+import com.cloudcog.gears.screen.login.LoginView;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.UI;
-
 
 public abstract class AbstractAuthorizableUI extends UI implements ISessionListener {
 	private static final long serialVersionUID = 4786085432570500274L;
 
 	@Override
 	protected void init(VaadinRequest request) {
-		if(GearsContext.isAuthorized()) {
+
+		if (hasAccessRights()) {
 			showAppScreen();
 		} else {
 			showLoginScreen();
 		}
 	}
 
-	private void showLoginScreen(){
-		setContent(new LoginScreen());
+	protected abstract boolean hasAccessRights();
+
+	private void showLoginScreen() {
+		setContent(new LoginView());
 	}
 
 	protected abstract void showAppScreen();
@@ -37,8 +36,9 @@ public abstract class AbstractAuthorizableUI extends UI implements ISessionListe
 		GearsContext.destroyJcrSession();
 		showLoginScreen();
 	}
-	
-	public static AbstractAuthorizableUI getCurrent(){
+
+	public static AbstractAuthorizableUI getCurrent() {
 		return (AbstractAuthorizableUI) UI.getCurrent();
 	}
+
 }
