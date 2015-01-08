@@ -86,15 +86,37 @@ public class UserDAO {
 		return group;
 	}
 
-	public static void addUserToGroup(Session session, Group group, User user) throws AuthorizableExistsException, RepositoryException {
-		group.addMember(user);
+	public static void addUserToGroup(Session session, GearsGroup group, GearsUser user) throws AuthorizableExistsException, RepositoryException {
+		group.getGroup().addMember(user.getUser());
 		session.save();
+	}
+
+	public static boolean userHasPermission(Session session, GearsUser user, String... permissions) throws RepositoryException {
+		if (user.isAdmin()) {
+			return true;
+		} else {
+			Iterator<Group> groupsIterator = user.declaredMemberOf();
+			while (groupsIterator.hasNext()) {
+				GearsGroup group = new GearsGroup((Group) groupsIterator.next());
+				if (group.hasPermissions(permissions)) {
+					return true;
+				}
+			}
+			return false;
+		}
 	}
 
 	public static void removeUser(Session session, String username) throws AccessDeniedException, UnsupportedRepositoryOperationException, RepositoryException {
 		final UserManager userManager = ((JackrabbitSession) session).getUserManager();
 		final User user = (User) userManager.getAuthorizable(username);
 		user.remove();
+		session.save();
+	}
+
+	public static void removeGroup(Session session, String groupName) throws AccessDeniedException, UnsupportedRepositoryOperationException, RepositoryException {
+		final UserManager userManager = ((JackrabbitSession) session).getUserManager();
+		final Group group = (Group) userManager.getAuthorizable(groupName);
+		group.remove();
 		session.save();
 	}
 }

@@ -148,6 +148,14 @@ public class GearsUser {
 		return fullName;
 	}
 
+	public User getUser() {
+		return user;
+	}
+
+	public boolean hasPermissions(Session session, String... permissions) throws RepositoryException {
+		return UserDAO.userHasPermission(session, this, permissions);
+	}
+
 	@Override
 	public String toString() {
 		try {
