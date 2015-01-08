@@ -41,8 +41,8 @@ public class UserDAO {
 		return users;
 	}
 
-	public static List<Group> getAllGroups(Session session) throws RepositoryException {
-		final List<Group> groups = new ArrayList<Group>();
+	public static List<GearsGroup> getAllGroups(Session session) throws RepositoryException {
+		final List<GearsGroup> groups = new ArrayList<GearsGroup>();
 
 		final UserManager userManager = ((JackrabbitSession) session).getUserManager();
 		Iterator<Authorizable> iter = userManager.findAuthorizables("jcr:primaryType", "rep:User");
@@ -50,7 +50,7 @@ public class UserDAO {
 		while (iter.hasNext()) {
 			Authorizable auth = iter.next();
 			if (auth.isGroup()) {
-				groups.add((Group) auth);
+				groups.add(new GearsGroup((Group) auth));
 			}
 		}
 

@@ -28,7 +28,8 @@ public class AdminMenu extends MenuBar {
 		this.setHeight("-1px"); //$NON-NLS-1$
 
 		MenuBar.MenuItem administration = this.addItem(Messages.getString("AdminMenu.administration"), null); //$NON-NLS-1$
-		administration.addItem(Messages.getString("AdminMenu.users"), ImageResource.getResource(ImageResource.USERS_16), controller.getHeaderClickCommand("users")); //$NON-NLS-1$ //$NON-NLS-2$
+		administration.addItem(Messages.getString("AdminMenu.users"), ImageResource.getResource(ImageResource.USERS_16), controller.getHeaderClickCommand("users"));
+		administration.addItem(Messages.getString("AdminMenu.groups"), ImageResource.getResource(ImageResource.USERS_16), controller.getHeaderClickCommand("groups"));
 		administration.addItem(Messages.getString("AdminMenu.settings"), ImageResource.getResource(ImageResource.WRENCH_SCREWDRIVER_16), null); //$NON-NLS-1$
 		administration.addItem(Messages.getString("AdminMenu.statuses"), ImageResource.getResource(ImageResource.WRENCH_16), null); //$NON-NLS-1$
 

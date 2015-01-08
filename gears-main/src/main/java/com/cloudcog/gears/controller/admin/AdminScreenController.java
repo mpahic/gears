@@ -3,10 +3,12 @@ package com.cloudcog.gears.controller.admin;
 import java.util.List;
 
 import com.cloudcog.gears.GearsContext;
+import com.cloudcog.gears.repository.user.GearsGroup;
 import com.cloudcog.gears.repository.user.GearsUser;
 import com.cloudcog.gears.repository.user.UserDAO;
 import com.cloudcog.gears.screen.admin.AdminMainScreen;
 import com.cloudcog.gears.screen.admin.AdminMenu;
+import com.cloudcog.gears.screen.admin.groups.GroupsMenu;
 import com.cloudcog.gears.screen.admin.users.UsersMenu;
 import com.cloudcog.gears.screen.header.Header;
 import com.vaadin.event.MouseEvents;
@@ -55,6 +57,8 @@ public class AdminScreenController {
 	public void handleCommand(String commandId) {
 		if (commandId.equalsIgnoreCase("users")) {
 			showUsersPanel();
+		} else if (commandId.equalsIgnoreCase("groups")) {
+			showGroupsPanel();
 		}
 	}
 
@@ -62,6 +66,15 @@ public class AdminScreenController {
 		try {
 			List<GearsUser> users = UserDAO.getAllUsers(GearsContext.getJcrSession());
 			adminMainScreen.setSideScreen(new UsersMenu(this, users));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void showGroupsPanel() {
+		try {
+			List<GearsGroup> groups = UserDAO.getAllGroups(GearsContext.getJcrSession());
+			adminMainScreen.setSideScreen(new GroupsMenu(this, groups));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
