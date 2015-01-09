@@ -4,20 +4,22 @@ import java.util.List;
 
 import javax.jcr.RepositoryException;
 
+import com.cloudcog.gears.controller.SimpleStringFilter;
 import com.cloudcog.gears.controller.admin.AdminScreenController;
 import com.cloudcog.gears.repository.user.GearsGroup;
-import com.vaadin.event.ItemClickEvent;
-import com.vaadin.event.ItemClickEvent.ItemClickListener;
-import com.vaadin.server.FontAwesome;
+import com.cloudcog.gears.util.ImageResource;
+import com.vaadin.data.Container;
+import com.vaadin.data.util.HierarchicalContainer;
+import com.vaadin.event.FieldEvents;
+import com.vaadin.event.FieldEvents.TextChangeEvent;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
-import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.TextField;
 import com.vaadin.ui.Tree;
 import com.vaadin.ui.themes.ValoTheme;
 
@@ -27,12 +29,14 @@ public final class GroupsMenu extends CustomComponent {
 	public static final String ID = "groups-menu";
 	public static final String REPORTS_BADGE_ID = "dashboard-menu-reports-badge";
 	public static final String NOTIFICATIONS_BADGE_ID = "dashboard-menu-notifications-badge";
-	private static final String STYLE_VISIBLE = "valo-menu-visible";
+
+	private HierarchicalContainer container;
 
 	public GroupsMenu(AdminScreenController adminScreenController, List<GearsGroup> groups) {
 		addStyleName("valo-menu");
 		setId(ID);
-		setSizeUndefined();
+		this.setWidth("100%");
+		this.setHeight("100%");
 
 		try {
 			setCompositionRoot(buildContent(adminScreenController, groups));
@@ -42,63 +46,62 @@ public final class GroupsMenu extends CustomComponent {
 	}
 
 	private Component buildContent(AdminScreenController adminScreenController, List<GearsGroup> groups) throws RepositoryException {
+
+		container = new HierarchicalContainer();
+		for (GearsGroup group : groups) {
+			container.addItem(group);
+			container.setChildrenAllowed(group, false);
+		}
 		final CssLayout menuContent = new CssLayout();
 		menuContent.addStyleName("sidebar");
 		menuContent.addStyleName(ValoTheme.MENU_PART);
 		menuContent.addStyleName("no-vertical-drag-hints");
 		menuContent.addStyleName("no-horizontal-drag-hints");
-		menuContent.setWidth(null);
+		menuContent.setWidth("100%");
 		menuContent.setHeight("100%");
 
 		menuContent.addComponent(buildTitle());
-		menuContent.addComponent(buildToggleButton());
-		menuContent.addComponent(buildMenuItems(adminScreenController, groups));
+		menuContent.addComponent(buildSearchFilter());
+		menuContent.addComponent(buildMenuItems(adminScreenController));
 
 		return menuContent;
 	}
 
 	private Component buildTitle() {
-		Label logo = new Label("Users");
+		Label logo = new Label("Groups");
 		logo.setSizeUndefined();
-		HorizontalLayout logoWrapper = new HorizontalLayout(logo);
+		Button addButton = new Button(ImageResource.getResource(ImageResource.PLUS_BUTTON_16));
+		addButton.setStyleName("small");
+		addButton.setStyleName("icon-only");
+		addButton.setStyleName("borderless");
+		HorizontalLayout logoWrapper = new HorizontalLayout(addButton, logo);
 		logoWrapper.setComponentAlignment(logo, Alignment.MIDDLE_CENTER);
-		logoWrapper.addStyleName("valo-menu-title");
 		return logoWrapper;
 	}
 
-	private Component buildToggleButton() {
-		Button valoMenuToggleButton = new Button("Menu", new ClickListener() {
+	private Component buildSearchFilter() {
+		TextField searchFilter = new TextField();
+		searchFilter.setInputPrompt("Search");
+		searchFilter.setWidth("100%");
+		searchFilter.setStyleName("small");
+		searchFilter.addTextChangeListener(new FieldEvents.TextChangeListener() {
+
 			@Override
-			public void buttonClick(final ClickEvent event) {
-				if (getCompositionRoot().getStyleName().contains(STYLE_VISIBLE)) {
-					getCompositionRoot().removeStyleName(STYLE_VISIBLE);
-				} else {
-					getCompositionRoot().addStyleName(STYLE_VISIBLE);
+			public void textChange(TextChangeEvent event) {
+				container.removeAllContainerFilters();
+				if (!event.getText().isEmpty()) {
+					Container.Filter filter = new SimpleStringFilter(event.getText());
+					container.addContainerFilter(filter);
 				}
 			}
 		});
-		valoMenuToggleButton.setIcon(FontAwesome.LIST);
-		valoMenuToggleButton.addStyleName("valo-menu-toggle");
-		valoMenuToggleButton.addStyleName(ValoTheme.BUTTON_BORDERLESS);
-		valoMenuToggleButton.addStyleName(ValoTheme.BUTTON_SMALL);
-		return valoMenuToggleButton;
+		return searchFilter;
 	}
 
-	private Component buildMenuItems(final AdminScreenController adminScreenController, List<GearsGroup> groups) throws RepositoryException {
+	private Component buildMenuItems(final AdminScreenController adminScreenController) throws RepositoryException {
 
-		Tree usersTree = new Tree();
-
-		for (final GearsGroup group : groups) {
-			usersTree.addItem(group);
-			usersTree.setChildrenAllowed(group, false);
-		}
-
-		usersTree.addItemClickListener(new ItemClickListener() {
-			@Override
-			public void itemClick(final ItemClickEvent event) {
-				adminScreenController.setSelectedItem(event.getItemId());
-			}
-		});
+		final Tree usersTree = new Tree();
+		usersTree.setContainerDataSource(this.container);
 
 		return usersTree;
 

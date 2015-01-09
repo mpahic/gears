@@ -38,16 +38,6 @@ public class Header extends Panel {
 		txtSearch.setInvalidCommitted(true);
 		mainLayout.addComponent(txtSearch, "top:20.0px;right:40.0px;");
 
-		// txtSearch
-		txtSearch = new TextField();
-		txtSearch.setStyleName("search");
-		txtSearch.setImmediate(false);
-		txtSearch.setWidth("-1px");
-		txtSearch.setHeight("-1px");
-		txtSearch.setInvalidAllowed(false);
-		txtSearch.setInvalidCommitted(true);
-		mainLayout.addComponent(txtSearch, "top:20.0px;right:40.0px;");
-
 		return mainLayout;
 	}
 

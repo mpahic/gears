@@ -26,6 +26,8 @@ public class AdminMenu extends MenuBar {
 		this.setImmediate(false);
 		this.setWidth("100%"); //$NON-NLS-1$
 		this.setHeight("-1px"); //$NON-NLS-1$
+		this.setStyleName("small");
+		this.setStyleName("borderless");
 
 		MenuBar.MenuItem administration = this.addItem(Messages.getString("AdminMenu.administration"), null); //$NON-NLS-1$
 		administration.addItem(Messages.getString("AdminMenu.users"), ImageResource.getResource(ImageResource.USERS_16), controller.getHeaderClickCommand("users"));
@@ -41,7 +43,6 @@ public class AdminMenu extends MenuBar {
 		userSetting.setStyleName("menuRight"); //$NON-NLS-1$
 
 		userSetting.addItem(Messages.getString("AdminMenu.Profile"), userIcon, null); //$NON-NLS-1$
-		userSetting.addItem(Messages.getString("AdminMenu.Settings"), ImageResource.getResource(ImageResource.WRENCH_SCREWDRIVER_16), null); //$NON-NLS-1$
 		userSetting.addItem(Messages.getString("AdminMenu.Logout"), ImageResource.getResource(ImageResource.PROHIBITION_16), new LogoutClickListener()); //$NON-NLS-1$
 	}
 }
