@@ -1,4 +1,4 @@
-package com.cloudcog.gears.controller;
+package com.cloudcog.gears.controller.filters;
 
 import com.vaadin.data.Container;
 import com.vaadin.data.Item;

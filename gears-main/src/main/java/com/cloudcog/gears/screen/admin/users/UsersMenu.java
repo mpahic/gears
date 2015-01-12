@@ -4,8 +4,8 @@ import java.util.List;
 
 import javax.jcr.RepositoryException;
 
-import com.cloudcog.gears.controller.SimpleStringFilter;
 import com.cloudcog.gears.controller.admin.AdminScreenController;
+import com.cloudcog.gears.controller.filters.SimpleStringFilter;
 import com.cloudcog.gears.controller.users.UserHelper;
 import com.cloudcog.gears.repository.user.GearsUser;
 import com.cloudcog.gears.repository.user.UserDAO;
@@ -14,6 +14,8 @@ import com.vaadin.data.Container;
 import com.vaadin.data.util.HierarchicalContainer;
 import com.vaadin.event.FieldEvents;
 import com.vaadin.event.FieldEvents.TextChangeEvent;
+import com.vaadin.event.ItemClickEvent;
+import com.vaadin.event.ItemClickEvent.ItemClickListener;
 import com.vaadin.server.Resource;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
@@ -109,6 +111,13 @@ public final class UsersMenu extends CustomComponent {
 		final Tree usersTree = new Tree();
 		usersTree.setContainerDataSource(this.container);
 		usersTree.setItemIconPropertyId("icon");
+
+		usersTree.addItemClickListener(new ItemClickListener() {
+			@Override
+			public void itemClick(final ItemClickEvent event) {
+				adminScreenController.setSelectedItem(event.getItemId());
+			}
+		});
 
 		return usersTree;
 

@@ -16,10 +16,11 @@ public class MainPanel extends Panel {
 		this.setContent(tabSheet);
 		this.setSizeFull();
 	}
-	
+
 	public void addTab(Component panel) {
-		Tab tab = tabSheet.addTab(panel);
+		Tab tab = tabSheet.addTab(panel, panel.getCaption(), panel.getIcon());
 		tab.setClosable(true);
+		tabSheet.setSelectedTab(tab);
 	}
 
 }

@@ -4,8 +4,8 @@ import java.util.List;
 
 import javax.jcr.RepositoryException;
 
-import com.cloudcog.gears.controller.SimpleStringFilter;
 import com.cloudcog.gears.controller.admin.AdminScreenController;
+import com.cloudcog.gears.controller.filters.SimpleStringFilter;
 import com.cloudcog.gears.repository.user.GearsGroup;
 import com.cloudcog.gears.util.ImageResource;
 import com.vaadin.data.Container;
