@@ -3,9 +3,11 @@ package com.cloudcog.gears.screen.mainPanel;
 import com.cloudcog.gears.controller.ObjectWindowMatcher;
 import com.cloudcog.gears.controller.admin.AdminScreenController;
 import com.cloudcog.gears.screen.GearsWindow;
+import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.TabSheet.Tab;
+import com.vaadin.ui.VerticalLayout;
 
 public class MainPanel extends Panel {
 	private static final long serialVersionUID = -5755975822484717108L;
@@ -13,8 +15,12 @@ public class MainPanel extends Panel {
 	TabSheet tabSheet = new TabSheet();
 
 	public MainPanel(AdminScreenController adminScreenController) {
+		VerticalLayout verticalLayout = new VerticalLayout();
+		verticalLayout.addComponent(new MenuBar());
 		tabSheet.setSizeFull();
-		this.setContent(tabSheet);
+		tabSheet.setStyleName("small");
+		verticalLayout.addComponent(tabSheet);
+		this.setContent(verticalLayout);
 		this.setSizeFull();
 	}
 
