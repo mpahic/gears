@@ -14,10 +14,9 @@ public class AdminMainScreen extends Panel {
 	private VerticalSplitPanel vsp = new VerticalSplitPanel();
 	private HorizontalSplitPanel hsp;
 
-
 	private MainPanel mainPanel;
-	
-	public AdminMainScreen(AdminScreenController adminScreenController){
+
+	public AdminMainScreen(AdminScreenController adminScreenController) {
 		init();
 		this.mainPanel = new MainPanel(adminScreenController);
 	}
@@ -29,27 +28,27 @@ public class AdminMainScreen extends Panel {
 		vsp.setStyleName(ChameleonTheme.SPLITPANEL_SMALL);
 		this.setContent(vsp);
 	}
-	
+
 	public void setHeader(Component panel) {
 		vsp.setFirstComponent(panel);
-		
+
 	}
-	
+
 	public void setSideScreen(Component panel) {
 
-		if(hsp == null)  {
+		if (hsp == null) {
 			hsp = new HorizontalSplitPanel();
 			hsp.setSplitPosition(250, Unit.PIXELS);
 			hsp.setSecondComponent(this.mainPanel);
-			
+
 			vsp.setSecondComponent(hsp);
 		}
-		
+
 		hsp.setFirstComponent(panel);
 	}
-	
-	public void addPanelScreen(Component panel) {
-		mainPanel.addTab(panel);
+
+	public void addPanelScreen(AdminScreenController adminScreenController, Object data) {
+		mainPanel.addTab(adminScreenController, data);
 	}
 
 }

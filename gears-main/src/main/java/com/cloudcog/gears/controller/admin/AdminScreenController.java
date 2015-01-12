@@ -3,11 +3,9 @@ package com.cloudcog.gears.controller.admin;
 import java.util.List;
 
 import com.cloudcog.gears.GearsContext;
-import com.cloudcog.gears.controller.ObjectWindowMatcher;
 import com.cloudcog.gears.repository.user.GearsGroup;
 import com.cloudcog.gears.repository.user.GearsUser;
 import com.cloudcog.gears.repository.user.UserDAO;
-import com.cloudcog.gears.screen.GearsWindow;
 import com.cloudcog.gears.screen.admin.AdminMainScreen;
 import com.cloudcog.gears.screen.admin.AdminMenu;
 import com.cloudcog.gears.screen.admin.groups.GroupsMenu;
@@ -83,10 +81,7 @@ public class AdminScreenController {
 
 	public void setSelectedItem(Object item) {
 		try {
-			Class<? extends GearsWindow> windowClass = ObjectWindowMatcher.getObjectWindow(item.getClass());
-			GearsWindow panel = windowClass.newInstance();
-			panel.initialize(this, item);
-			adminMainScreen.addPanelScreen(panel);
+			adminMainScreen.addPanelScreen(this, item);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
