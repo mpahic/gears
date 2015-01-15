@@ -1,5 +1,8 @@
 package com.cloudcog.gears.screen.admin;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.cloudcog.gears.GearsContext;
 import com.cloudcog.gears.controller.admin.AdminScreenController;
 import com.cloudcog.gears.controller.users.UserHelper;
@@ -13,12 +16,13 @@ import com.vaadin.ui.MenuBar;
 
 public class AdminMenu extends MenuBar {
 	private static final long serialVersionUID = -3386763713474566088L;
+	private static final Logger log = LoggerFactory.getLogger(AdminMenu.class);
 
 	public AdminMenu(AdminScreenController controller) {
 		try {
 			init(controller);
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 		}
 	}
 

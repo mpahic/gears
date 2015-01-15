@@ -4,6 +4,9 @@ import java.util.List;
 
 import javax.jcr.RepositoryException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.cloudcog.gears.controller.admin.AdminScreenController;
 import com.cloudcog.gears.controller.filters.SimpleStringFilter;
 import com.cloudcog.gears.controller.users.UserHelper;
@@ -30,6 +33,7 @@ import com.vaadin.ui.themes.ValoTheme;
 
 public final class UsersMenu extends CustomComponent {
 	private static final long serialVersionUID = 2766023547249134875L;
+	private static final Logger log = LoggerFactory.getLogger(UsersMenu.class);
 
 	public static final String ID = "users-menu";
 	public static final String REPORTS_BADGE_ID = "dashboard-menu-reports-badge";
@@ -45,7 +49,7 @@ public final class UsersMenu extends CustomComponent {
 		try {
 			setCompositionRoot(buildContent(adminScreenController, users));
 		} catch (RepositoryException e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 		}
 	}
 

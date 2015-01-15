@@ -2,6 +2,9 @@ package com.cloudcog.gears.controller.admin;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.cloudcog.gears.GearsContext;
 import com.cloudcog.gears.repository.user.GearsGroup;
 import com.cloudcog.gears.repository.user.GearsUser;
@@ -17,6 +20,8 @@ import com.vaadin.ui.MenuBar.Command;
 import com.vaadin.ui.MenuBar.MenuItem;
 
 public class AdminScreenController {
+
+	private static final Logger log = LoggerFactory.getLogger(AdminScreenController.class);
 
 	private AdminMainScreen adminMainScreen;
 
@@ -66,7 +71,7 @@ public class AdminScreenController {
 			List<GearsUser> users = UserDAO.getAllUsers(GearsContext.getJcrSession());
 			adminMainScreen.setSideScreen(new UsersMenu(this, users));
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 		}
 	}
 
@@ -75,7 +80,7 @@ public class AdminScreenController {
 			List<GearsGroup> groups = UserDAO.getAllGroups(GearsContext.getJcrSession());
 			adminMainScreen.setSideScreen(new GroupsMenu(this, groups));
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 		}
 	}
 
@@ -83,7 +88,7 @@ public class AdminScreenController {
 		try {
 			adminMainScreen.addPanelScreen(this, item);
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 		}
 	}
 

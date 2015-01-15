@@ -1,5 +1,8 @@
 package com.cloudcog.gears.screen.login;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.cloudcog.gears.i18n.Messages;
 import com.cloudcog.gears.login.UserSessionHandler;
 import com.cloudcog.gears.login.exception.LoginException;
@@ -17,6 +20,8 @@ import com.vaadin.ui.VerticalLayout;
 
 public class LoginScreen extends VerticalLayout implements ClickListener {
 	private static final long serialVersionUID = -9069021629836258264L;
+	private static final Logger log = LoggerFactory.getLogger(LoginScreen.class);
+
 	final FormLayout loginForm = new FormLayout();
 	private Button btnLogin = new Button(Messages.getString("LoginScreen.login")); //$NON-NLS-1$
 	private TextField txtUsername = new TextField(Messages.getString("LoginScreen.username")); //$NON-NLS-1$
@@ -63,7 +68,7 @@ public class LoginScreen extends VerticalLayout implements ClickListener {
 			btnLogin.setComponentError(new UserError(Messages.getString("LoginScreen.login_error"))); //$NON-NLS-1$
 		} catch (Exception e) {
 			btnLogin.setComponentError(new UserError(e.getMessage()));
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 		}
 	}
 

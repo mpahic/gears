@@ -1,5 +1,8 @@
 package com.cloudcog.gears.screen.login;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.cloudcog.gears.i18n.Messages;
 import com.cloudcog.gears.login.UserSessionHandler;
 import com.cloudcog.gears.login.exception.LoginException;
@@ -19,8 +22,9 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
-@SuppressWarnings("serial")
 public class LoginView extends VerticalLayout {
+	private static final long serialVersionUID = -8194461866638432372L;
+	private static final Logger log = LoggerFactory.getLogger(LoginView.class);
 
 	public LoginView() {
 		setSizeFull();
@@ -72,7 +76,7 @@ public class LoginView extends VerticalLayout {
 				try {
 					userSession.loginUser(username.getValue(), password.getValue());
 				} catch (LoginException e) {
-					e.printStackTrace();
+					log.error(e.getMessage(), e);
 				}
 			}
 		});

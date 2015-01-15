@@ -11,8 +11,12 @@ import org.apache.jackrabbit.api.security.user.Group;
 import org.apache.jackrabbit.api.security.user.User;
 import org.apache.jackrabbit.value.BooleanValue;
 import org.apache.jackrabbit.value.StringValue;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class GearsUser {
+
+	private static final Logger log = LoggerFactory.getLogger(GearsUser.class);
 
 	private static final String PROPERTY_GENDER = "gender";
 	private static final String PROPERTY_FIRST_NAME = "firstName";
@@ -177,7 +181,7 @@ public class GearsUser {
 		try {
 			return getFullName();
 		} catch (RepositoryException e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			return "user" + super.toString();
 		}
 	}

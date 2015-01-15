@@ -4,6 +4,9 @@ import javax.jcr.RepositoryException;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.annotation.WebServlet;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.cloudcog.gears.controller.admin.AdminScreenController;
 import com.cloudcog.gears.repository.RepositoryContext;
 import com.cloudcog.gears.repository.user.UserDAO;
@@ -12,8 +15,9 @@ import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.VaadinServlet;
 
 @Theme("gears")
-@SuppressWarnings("serial")
 public class AdminUI extends AbstractAuthorizableUI {
+	private static final long serialVersionUID = 6395024095088840736L;
+	private static final Logger log = LoggerFactory.getLogger(AdminUI.class);
 
 	@WebServlet(value = "/admin/*", asyncSupported = true)
 	@VaadinServletConfiguration(productionMode = false, ui = AdminUI.class, widgetset = "com.cloudcog.gears.AppWidgetSet")
@@ -43,7 +47,7 @@ public class AdminUI extends AbstractAuthorizableUI {
 		try {
 			RepositoryContext.getRepository();
 		} catch (RepositoryException e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 		}
 	}
 

@@ -4,6 +4,9 @@ import java.util.List;
 
 import javax.jcr.RepositoryException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.cloudcog.gears.controller.admin.AdminScreenController;
 import com.cloudcog.gears.controller.filters.SimpleStringFilter;
 import com.cloudcog.gears.repository.user.GearsGroup;
@@ -25,6 +28,7 @@ import com.vaadin.ui.themes.ValoTheme;
 
 public final class GroupsMenu extends CustomComponent {
 	private static final long serialVersionUID = 1233140341244995086L;
+	private static final Logger log = LoggerFactory.getLogger(GroupsMenu.class);
 
 	public static final String ID = "groups-menu";
 	public static final String REPORTS_BADGE_ID = "dashboard-menu-reports-badge";
@@ -41,7 +45,7 @@ public final class GroupsMenu extends CustomComponent {
 		try {
 			setCompositionRoot(buildContent(adminScreenController, groups));
 		} catch (RepositoryException e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 		}
 	}
 
