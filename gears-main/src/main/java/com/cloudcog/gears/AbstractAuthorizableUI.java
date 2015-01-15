@@ -3,6 +3,7 @@ package com.cloudcog.gears;
 import com.cloudcog.gears.login.ISessionListener;
 import com.cloudcog.gears.screen.login.LoginView;
 import com.vaadin.server.VaadinRequest;
+import com.vaadin.server.VaadinSession;
 import com.vaadin.ui.UI;
 
 public abstract class AbstractAuthorizableUI extends UI implements ISessionListener {
@@ -11,6 +12,7 @@ public abstract class AbstractAuthorizableUI extends UI implements ISessionListe
 	@Override
 	protected void init(VaadinRequest request) {
 
+		VaadinSession.getCurrent().setLocale(request.getLocale());
 		if (hasAccessRights()) {
 			showAppScreen();
 		} else {

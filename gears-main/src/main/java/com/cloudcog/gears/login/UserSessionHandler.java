@@ -40,13 +40,10 @@ public class UserSessionHandler {
 		} catch (RepositoryException e) {
 			log.error(e.getMessage(), e);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			log.error(e.getMessage(), e);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			log.error(e.getMessage(), e);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			log.error(e.getMessage(), e);
 		}
 	}

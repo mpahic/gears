@@ -1,14 +1,11 @@
 package com.cloudcog.gears;
 
-import javax.jcr.RepositoryException;
-import javax.servlet.ServletContextEvent;
 import javax.servlet.annotation.WebServlet;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.cloudcog.gears.controller.admin.AdminScreenController;
-import com.cloudcog.gears.repository.RepositoryContext;
 import com.cloudcog.gears.repository.user.UserDAO;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
@@ -39,15 +36,8 @@ public class AdminUI extends AbstractAuthorizableUI {
 				return false;
 			}
 		} catch (Exception e) {
-			return false;
-		}
-	}
-
-	public void contextInitialized(ServletContextEvent event) {
-		try {
-			RepositoryContext.getRepository();
-		} catch (RepositoryException e) {
 			log.error(e.getMessage(), e);
+			return false;
 		}
 	}
 

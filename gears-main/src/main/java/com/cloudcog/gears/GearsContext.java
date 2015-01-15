@@ -9,7 +9,7 @@ import javax.jcr.Session;
 import com.cloudcog.gears.repository.RepositoryContext;
 import com.cloudcog.gears.repository.user.UserDAO;
 import com.vaadin.server.VaadinService;
-import com.vaadin.ui.UI;
+import com.vaadin.server.VaadinSession;
 
 public class GearsContext {
 
@@ -50,7 +50,7 @@ public class GearsContext {
 	}
 
 	public static Locale getSessionLocale() {
-		return UI.getCurrent().getLocale();
+		return VaadinSession.getCurrent().getLocale();
 	}
 
 }
