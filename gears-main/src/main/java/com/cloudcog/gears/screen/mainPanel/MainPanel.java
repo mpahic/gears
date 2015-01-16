@@ -6,11 +6,11 @@ import org.slf4j.LoggerFactory;
 import com.cloudcog.gears.controller.ObjectWindowMatcher;
 import com.cloudcog.gears.controller.admin.AdminScreenController;
 import com.cloudcog.gears.screen.GearsWindow;
-import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.TabSheet.Tab;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.themes.ValoTheme;
 
 public class MainPanel extends Panel {
 	private static final long serialVersionUID = -5755975822484717108L;
@@ -20,9 +20,9 @@ public class MainPanel extends Panel {
 
 	public MainPanel(AdminScreenController adminScreenController) {
 		VerticalLayout verticalLayout = new VerticalLayout();
-		verticalLayout.addComponent(new MenuBar());
 		tabSheet.setSizeFull();
-		tabSheet.setStyleName("small");
+		tabSheet.setStyleName(ValoTheme.TABSHEET_COMPACT_TABBAR);
+		tabSheet.addStyleName(ValoTheme.TABSHEET_FRAMED);
 		verticalLayout.addComponent(tabSheet);
 		this.setContent(verticalLayout);
 		this.setSizeFull();
