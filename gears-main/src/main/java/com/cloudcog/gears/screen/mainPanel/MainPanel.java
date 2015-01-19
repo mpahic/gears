@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import com.cloudcog.gears.controller.ObjectWindowMatcher;
 import com.cloudcog.gears.controller.admin.AdminScreenController;
+import com.cloudcog.gears.repository.user.GearsUser;
 import com.cloudcog.gears.screen.GearsWindow;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.TabSheet;
@@ -47,6 +48,19 @@ public class MainPanel extends Panel {
 			Class<? extends GearsWindow> windowClass = ObjectWindowMatcher.getObjectWindow(data.getClass());
 			GearsWindow panel = windowClass.newInstance();
 			panel.initialize(adminScreenController, data);
+			Tab tab = tabSheet.addTab(panel, panel.getCaption(), panel.getIcon());
+			tab.setClosable(true);
+			tabSheet.setSelectedTab(tab);
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+		}
+	}
+
+	public void addNewTab(AdminScreenController adminScreenController, Class<GearsUser> objectClass) {
+		try {
+			Class<? extends GearsWindow> windowClass = ObjectWindowMatcher.getObjectWindow(objectClass);
+			GearsWindow panel = windowClass.newInstance();
+			panel.initialize(adminScreenController, null);
 			Tab tab = tabSheet.addTab(panel, panel.getCaption(), panel.getIcon());
 			tab.setClosable(true);
 			tabSheet.setSelectedTab(tab);

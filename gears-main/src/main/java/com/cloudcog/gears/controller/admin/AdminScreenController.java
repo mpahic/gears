@@ -101,4 +101,12 @@ public class AdminScreenController {
 			AdminScreenController.this.setSelectedItem(event.getSource());
 		}
 	}
+
+	public void createNewPanel(Class<GearsUser> objectClass) {
+		try {
+			adminMainScreen.addNewPanelScreen(this, objectClass);
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+		}
+	}
 }

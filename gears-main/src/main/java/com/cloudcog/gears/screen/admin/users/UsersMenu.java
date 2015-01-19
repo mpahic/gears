@@ -22,6 +22,7 @@ import com.vaadin.event.ItemClickEvent.ItemClickListener;
 import com.vaadin.server.Resource;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.CustomComponent;
@@ -72,20 +73,27 @@ public final class UsersMenu extends CustomComponent {
 		menuContent.setWidth("100%");
 		menuContent.setHeight("100%");
 
-		menuContent.addComponent(buildTitle());
+		menuContent.addComponent(buildTitle(adminScreenController));
 		menuContent.addComponent(buildSearchFilter());
 		menuContent.addComponent(buildMenuItems(adminScreenController));
 
 		return menuContent;
 	}
 
-	private Component buildTitle() {
+	private Component buildTitle(final AdminScreenController adminScreenController) {
 		Label logo = new Label("Users");
 		logo.setSizeUndefined();
 		Button addButton = new Button(ImageResource.getResource(ImageResource.PLUS_BUTTON_16));
 		addButton.setStyleName("small");
 		addButton.setStyleName("icon-only");
 		addButton.setStyleName("borderless");
+		addButton.addClickListener(new Button.ClickListener() {
+			@Override
+			public void buttonClick(ClickEvent event) {
+				adminScreenController.createNewPanel(GearsUser.class);
+
+			}
+		});
 		HorizontalLayout logoWrapper = new HorizontalLayout(addButton, logo);
 		logoWrapper.setComponentAlignment(logo, Alignment.MIDDLE_CENTER);
 		return logoWrapper;

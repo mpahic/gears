@@ -1,6 +1,7 @@
 package com.cloudcog.gears.screen.admin;
 
 import com.cloudcog.gears.controller.admin.AdminScreenController;
+import com.cloudcog.gears.repository.user.GearsUser;
 import com.cloudcog.gears.screen.mainPanel.MainPanel;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalSplitPanel;
@@ -49,6 +50,11 @@ public class AdminMainScreen extends Panel {
 
 	public void addPanelScreen(AdminScreenController adminScreenController, Object data) {
 		mainPanel.addTab(adminScreenController, data);
+	}
+
+	public void addNewPanelScreen(AdminScreenController adminScreenController, Class<GearsUser> objectClass) {
+		mainPanel.addNewTab(adminScreenController, objectClass);
+
 	}
 
 }

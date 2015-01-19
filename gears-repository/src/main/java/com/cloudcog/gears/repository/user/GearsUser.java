@@ -160,6 +160,10 @@ public class GearsUser {
 		}
 	}
 
+	public void setAddress(String address) throws RepositoryException {
+		this.user.setProperty(PROPERTY_ADDRESS, new StringValue(address));
+	}
+
 	public String getFullName() throws RepositoryException {
 		String fullName = (getFirstName() + " " + getLastName()).trim();
 		if (fullName.isEmpty()) {
