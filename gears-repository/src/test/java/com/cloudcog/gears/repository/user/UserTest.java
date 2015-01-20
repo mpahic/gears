@@ -8,6 +8,7 @@ import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
 import org.apache.jackrabbit.commons.cnd.ParseException;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -47,6 +48,47 @@ public class UserTest {
 		Assert.assertEquals("", user.getLastName());
 		Assert.assertEquals(null, user.getGender());
 		UserDAO.removeUser(session, user.getUsername());
+	}
+
+	@Test
+	public void privilegesTest() throws RepositoryException, FileNotFoundException, ParseException, IOException {
+
+		GearsUser user = new GearsUser(session, "TestCreationUser3", "TestCreationUser3");
+
+		// AccessControlManager aMgr = session.getAccessControlManager();
+		// JackrabbitAccessControlList acl =
+		// AccessControlUtils.getAccessControlList(session, null);
+		//
+		// //((JackrabbitWorkspace)
+		// session.getWorkspace()).getPrivilegeManager();
+		//
+		// if (acl != null) {
+		// PrincipalManager principalManager = ((JackrabbitSession)
+		// session).getPrincipalManager();
+		// Privilege[] privileges =
+		// AccessControlUtils.privilegesFromNames(session, Privilege.JCR_ALL);
+		//
+		// acl.addEntry(EveryonePrincipal.getInstance(), privileges, true);
+		// aMgr.setPolicy(null, acl);
+		// session.save();
+		// }
+
+		Session newSession = RepositoryContext.login("TestCreationUser3", "TestCreationUser3");
+
+		Assert.assertEquals(newSession != null, true);
+
+		newSession.logout();
+
+		// and the session must be saved for the changes to be applied
+		session.save();
+
+		UserDAO.removeUser(session, user.getUsername());
+	}
+
+	@After
+	public void closeSession() {
+		session.logout();
+
 	}
 
 }
