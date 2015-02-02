@@ -6,6 +6,8 @@ import javax.jcr.LoginException;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
+import com.cloudcog.gears.controller.services.ModuleService;
+import com.cloudcog.gears.controller.services.impl.ModuleServiceImpl;
 import com.cloudcog.gears.repository.RepositoryContext;
 import com.cloudcog.gears.repository.user.UserDAO;
 import com.vaadin.server.VaadinService;
@@ -14,6 +16,8 @@ import com.vaadin.server.VaadinSession;
 public class GearsContext {
 
 	private static final String SESSION_PARAM = "jcrSession";
+
+	private static ModuleService moduleService;
 
 	public static void destroyJcrSession() {
 		Session session = (Session) VaadinService.getCurrentRequest().getWrappedSession().getAttribute(SESSION_PARAM);
@@ -51,6 +55,13 @@ public class GearsContext {
 
 	public static Locale getSessionLocale() {
 		return VaadinSession.getCurrent().getLocale();
+	}
+
+	public static ModuleService getModuleService() {
+		if (moduleService == null) {
+			moduleService = new ModuleServiceImpl();
+		}
+		return moduleService;
 	}
 
 }

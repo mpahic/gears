@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import com.cloudcog.gears.GearsContext;
 import com.cloudcog.gears.controller.admin.AdminScreenController;
+import com.cloudcog.gears.controller.services.Module;
 import com.cloudcog.gears.controller.users.UserHelper;
 import com.cloudcog.gears.i18n.Messages;
 import com.cloudcog.gears.login.LogoutClickListener;
@@ -38,6 +39,11 @@ public class AdminMenu extends MenuBar {
 		administration.addItem(Messages.getString("AdminMenu.groups"), ImageResource.getResource(ImageResource.USERS_16), controller.getHeaderClickCommand("groups"));
 		administration.addItem(Messages.getString("AdminMenu.settings"), ImageResource.getResource(ImageResource.WRENCH_SCREWDRIVER_16), null); //$NON-NLS-1$
 		administration.addItem(Messages.getString("AdminMenu.statuses"), ImageResource.getResource(ImageResource.WRENCH_16), null); //$NON-NLS-1$
+
+		MenuBar.MenuItem modules = this.addItem(Messages.getString("AdminMenu.modules"), null); //$NON-NLS-1$
+		for (Module module : GearsContext.getModuleService().getModules()) {
+			modules.addItem(module.getName(), null);
+		}
 
 		GearsUser user = UserDAO.getCurrentUser(GearsContext.getJcrSession());
 		String username = user.getUsername();
