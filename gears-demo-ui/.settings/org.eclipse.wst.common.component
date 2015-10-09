@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="gears-demo-ui">
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <dependent-module archiveName="gear-admin-7.5.4.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/gear-admin/gear-admin">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gears-sdk-7.5.4.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/gears-sdk/gears-sdk">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gear-html-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/gear-html/gear-html">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gears-demo-widgetset-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/gears-demo-widgetset/gears-demo-widgetset">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="context-root" value="gears-demo-ui"/>
+        <property name="java-output-path" value="/gears-demo-ui/target/classes"/>
+        <property name="component.exclusion.patterns" value="WEB-INF/classes/VAADIN/gwt-unitCache/**,WEB-INF/classes/VAADIN/widgetsets/WEB-INF/**"/>
+    </wb-module>
+</project-modules>
